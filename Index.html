@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>Training Log</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/dexie@4.0.8/dist/dexie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Personal training log</div>
+        <h1>Training Log</h1>
+      </div>
+      <button id="exportBtn" class="ghost-btn" type="button">Export CSV</button>
+    </header>
+
+    <main>
+      <section id="tab-log" class="panel active">
+        <h2>Log session</h2>
+        <form id="entryForm" class="card form-grid">
+          <label><span>Date</span><input id="date" type="date" required></label>
+          <label><span>Day</span>
+            <select id="dayType" required>
+              <option value="Mon">Mon</option>
+              <option value="Wed">Wed</option>
+              <option value="Fri">Fri</option>
+            </select>
+          </label>
+          <label><span>Exercise</span><input id="exercise" type="text" placeholder="Squat" required></label>
+          <label><span>Load</span><input id="load" type="number" step="0.5" placeholder="100" required></label>
+          <label><span>Reps</span><input id="reps" type="number" step="1" placeholder="5" required></label>
+          <label><span>RIR</span><input id="rir" type="number" step="0.5" placeholder="2" required></label>
+          <label><span>Knee tendon awareness</span><input id="knee" type="number" step="1" min="0" max="10" placeholder="3"></label>
+          <label class="full"><span>Notes</span><textarea id="notes" rows="3" placeholder="Optional notes"></textarea></label>
+          <button class="primary-btn full" type="submit">Save entry</button>
+        </form>
+      </section>
+
+      <section id="tab-history" class="panel">
+        <h2>History</h2>
+        <div id="historyList" class="stack"></div>
+      </section>
+
+      <section id="tab-trends" class="panel">
+        <h2>Trends</h2>
+        <div class="card chart-wrap">
+          <canvas id="trendChart"></canvas>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric card"><div class="label">Entries</div><div id="entryCount" class="value">0</div></div>
+          <div class="metric card"><div class="label">Latest e1RM</div><div id="latestE1RM" class="value">—</div></div>
+          <div class="metric card"><div class="label">Latest fatigue</div><div id="latestFatigue" class="value">—</div></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <button data-tab="log" class="tab-btn active" type="button">Log</button>
+      <button data-tab="history" class="tab-btn" type="button">History</button>
+      <button data-tab="trends" class="tab-btn" type="button">Trends</button>
+    </nav>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
